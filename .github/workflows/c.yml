@@ -19,7 +19,7 @@ jobs:
         sudo apt -y install build-essential git ninja-build libgnutls28-dev meson pkg-config libgtk-4-dev
         git clone https://gitlab.gnome.org/GNOME/vte
         cd vte
-        meson _build -gtk3=false -gtk4=true
+        meson -gtk3=false -gtk4=true _build
         ninja -C _build
         sudo ninja -C _build install
         sudo ldconfig
