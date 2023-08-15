@@ -8,19 +8,14 @@ CFLAGS += -pedantic
 # CFLAGS += -Werror
 CFLAGS += -Wmissing-declarations
 CFLAGS += -I./libs/
+CFLAGS += $(shell pkg-config --cflags gtk4 vte-2.91-gtk4)
+LDFLAGS = $(shell pkg-config --libs gtk4 vte-2.91-gtk4)
 ASANFLAGS=-fsanitize=address -fno-common -fno-omit-frame-pointer
 
 ifeq ($(shell uname), Linux)
 
 CFLAGS += -I/usr/local/include
 LDFLAGS = -L/usr/local/lib
-LIBS = -vte -gtk
-
-else
-
-CFLAGS += $(shell pkg-config --cflags vte-2.91-gtk4)
-LDFLAGS = $(shell pkg-config --libs vte-2.91-gtk4)
-LIBS =
 
 endif
 

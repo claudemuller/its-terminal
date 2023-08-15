@@ -16,7 +16,7 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update
-        sudo apt -y install build-essential libgtk-4-1 libvte-2.91-0
+        sudo apt -y install build-essential pkg-config libgtk-4-1 libvte-2.91-0
 
     - name: make build
       run: make build
