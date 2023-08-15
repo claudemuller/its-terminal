@@ -16,7 +16,7 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update
-        sudo apt -y install build-essential git ninja-build gnutls-bin meson pkg-config libgtk-4-dev
+        sudo apt -y install build-essential git ninja-build libgnutls-dev meson pkg-config libgtk-4-dev
         git clone https://gitlab.gnome.org/GNOME/vte
         cd vte
         meson _build
