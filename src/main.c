@@ -2,13 +2,22 @@
 #include <gtk/gtk.h>
 #include <vte/vte.h>
 
+#define CLR_R(x)   (((x) & 0xff0000) >> 16)
+#define CLR_G(x)   (((x) & 0x00ff00) >>  8)
+#define CLR_B(x)   (((x) & 0x0000ff) >>  0)
+#define CLR_16(x)  ((double)(x) / 0xff)
+#define CLR_GDK(x) (const GdkRGBA){ .red = CLR_16(CLR_R(x)), \
+	.green = CLR_16(CLR_G(x)), \
+	.blue = CLR_16(CLR_B(x)), \
+	.alpha = 0 }
+
 static void child_ready(VteTerminal *terminal, GPid pid, GError *error, gpointer user_data)
 {
-    if (!terminal) {
+	if (!terminal) {
 		return;
 	}
-    if (pid == -1) {
-		exit(1);
+	if (pid == -1) {
+	exit(1);
 	}
 }
 
@@ -33,16 +42,39 @@ static void activate(GtkApplication *app, gpointer udata)
 		VTE_TERMINAL(term),
 		VTE_PTY_DEFAULT,
 		NULL,         // Working directory
-        cmd,          // Command to run i.e. current shell
-        NULL,         // Environment
-        0,            // Spawn flags
-        NULL, NULL,   // Child setup
-        NULL,         // Child pid
-        -1,           // Timeout
-        NULL,         // Cancellable
-        child_ready,  // Callback
-        NULL          // user_data
+		cmd,          // Command to run i.e. current shell
+		NULL,         // Environment
+		0,            // Spawn flags
+		NULL, NULL,   // Child setup
+		NULL,         // Child pid
+		-1,           // Timeout
+		NULL,         // Cancellable
+		child_ready,  // Callback
+		NULL          // user_data
 	);
+
+	// Set terminal colors
+	vte_terminal_set_colors(VTE_TERMINAL(term),
+						 &CLR_GDK(0xffffff),
+						 &(GdkRGBA){ .alpha = 0.85 },
+						 (const GdkRGBA[]){
+						 CLR_GDK(0x111111),
+						 CLR_GDK(0xd36265),
+						 CLR_GDK(0xaece91),
+						 CLR_GDK(0xe7e18c),
+						 CLR_GDK(0x5297cf),
+						 CLR_GDK(0x963c59),
+						 CLR_GDK(0x5E7175),
+						 CLR_GDK(0xbebebe),
+						 CLR_GDK(0x666666),
+						 CLR_GDK(0xef8171),
+						 CLR_GDK(0xcfefb3),
+						 CLR_GDK(0xfff796),
+						 CLR_GDK(0x74b8ef),
+						 CLR_GDK(0xb85e7b),
+						 CLR_GDK(0xA3BABF),
+						 CLR_GDK(0xffffff)
+						 }, 16);
 
 	// Add term to the win and show the win
 	gtk_window_set_child(GTK_WINDOW(win), term);
