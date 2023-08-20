@@ -75,7 +75,7 @@ static void activate(GtkApplication *app, gpointer udata)
 
 int run_term(GtkApplication *app, int argc, char *argv[])
 {
-	app = gtk_application_new("rs.dxt.super", G_APPLICATION_DEFAULT_FLAGS);
+	app = gtk_application_new("rs.dxt.super", G_APPLICATION_FLAGS_NONE);
 	g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
 	int status = g_application_run(G_APPLICATION(app), argc, argv);
 	g_object_unref(app);

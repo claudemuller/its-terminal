@@ -16,10 +16,10 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update
-        sudo apt -y install build-essential git ninja-build libgnutls28-dev meson pkg-config libgtk-4-dev
+        sudo apt -y install build-essential git ninja-build libgnutls28-dev meson pkg-config libgtk-4-dev libgtk-3-dev libsystemd-dev valac
         git clone https://gitlab.gnome.org/GNOME/vte
         cd vte
-        meson -gtk3=false -gtk4=true _build
+        meson _build
         ninja -C _build
         sudo ninja -C _build install
         sudo ldconfig
