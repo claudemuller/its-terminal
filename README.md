@@ -1,4 +1,5 @@
 # It's Terminal
+[![build](https://github.com/claudemuller/its-terminal/actions/workflows/c.yml/badge.svg)](https://github.com/claudemuller/its-terminal/actions/workflows/c.yml)
 
 A basic terminal emulator written in C with VTE and GTK+
 
